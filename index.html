@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Gold Price Dashboard</title>
+  <style>
+    body { font-family: Arial; background:#111; color:#fff; }
+    .card { background:#1e1e1e; padding:15px; margin:10px; border-radius:8px; }
+    h2 { color:#00ffaa; }
+  </style>
+</head>
+<body>
+
+<h1>International Gold – INR Tracker</h1>
+<div id="data"></div>
+
+<script>
+fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgO9hICyOfoPV2fVufy4TE3KxqYx4Y7Wlu4Koex11fRAPfUod1n7u36ikwKF-ucGNWMa0-VEqAtwx6Cs8dvc7djk4T3DFRS-x7xB0ORI9LFCUQ8qP6DCzUtejb9X0C2gHxOfTcaUSqvZMDdZF6FOyAVZ4iK_SbLA9ernqlCH-QLPhgI8XPVQdg3AwyVn5TSyg92zhEJzVtRq0JImLMOevtLDhJW6Rkk3n6J5pwt-epTKhQbA1LhHTojxTuA-neQ5UEvBOxEFlhV5i2N3mluN8q4sx8ehA&lib=MGojfogA9ghirZ0wsR_Oq2NDoIZ1hlD_h")
+  .then(res => res.json())
+  .then(d => {
+    document.getElementById("data").innerHTML = `
+      <div class="card">
+        <h2>Updated: ${d.time}</h2>
+        <p>XAUUSD: $${d.xauusd}</p>
+        <p>USDINR: ₹${d.usdinr}</p>
+        <p>Base INR / gram: ₹${d.baseInrGram}</p>
+        <hr>
+        <p>24K Retail: ₹${d.retail24k} | Market: ₹${d.last24k} | Diff: ₹${d.diff24k}</p>
+        <p>22K Retail: ₹${d.retail22k} | Market: ₹${d.last22k} | Diff: ₹${d.diff22k}</p>
+      </div>`;
+  });
+</script>
+
+</body>
+</html>
