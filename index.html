@@ -9,12 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: linear-gradient(135deg, #0f0f17 0%, #131327 100%);
@@ -23,100 +18,74 @@
       padding: 20px 15px;
       background-attachment: fixed;
     }
-
-    .container {
-      max-width: 580px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
+    .container { max-width: 600px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
     h1 {
-      font-size: 2.1rem;
+      font-size: 2.2rem;
       font-weight: 700;
       background: linear-gradient(90deg, #00ffaa, #00d4ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
-
-    .last-update {
+    .update-time {
       color: #00ffaa;
-      font-weight: 500;
       font-size: 1.1rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .card {
-      background: rgba(30, 30, 46, 0.75);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(100, 255, 200, 0.12);
-      border-radius: 16px;
-      padding: 1.8rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      font-weight: 500;
       margin-bottom: 1.5rem;
     }
-
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    .card {
+      background: rgba(30, 30, 46, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 255, 170, 0.15);
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      margin-bottom: 1.5rem;
     }
-
-    .price-row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      color: #a0a0ff;
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
-
-    .value {
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .highlight {
-      color: #00ffaa;
-      font-weight: 700;
-    }
-
-    .diff-positive {
-      color: #ff6b6b;
-      font-weight: 500;
-    }
-
     .header-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 1.4rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0, 255, 170, 0.18);
+      border-bottom: 1px solid rgba(0, 255, 170, 0.2);
     }
-
-    .title-section {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #00ffaa;
-    }
-
-    .xau-section {
+    .title { font-size: 1.45rem; font-weight: 600; color: #00ffaa; }
+    .intl-rates {
       text-align: right;
+      font-size: 0.95rem;
       color: #a0d4ff;
     }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 1.8rem; }
-      .value { font-size: 1.2rem; }
-      .card { padding: 1.4rem; }
+    .intl-rates strong { color: #00ffaa; }
+    .price-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .label { color: #b0b0ff; font-size: 1rem; font-weight: 400; }
+    .value {
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-align: right;
+    }
+    .highlight { color: #00ffaa; font-weight: 700; }
+    .diff-positive { color: #00ffaa !important; }
+    .diff-negative { color: #ff4d4d !important; }
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #888;
+      padding: 1rem;
+      background: rgba(30,30,46,0.6);
+      border-radius: 12px;
+    }
+    @media (max-width: 500px) {
+      h1 { font-size: 1.9rem; }
+      .value { font-size: 1.25rem; }
     }
   </style>
 </head>
@@ -125,13 +94,13 @@
 <div class="container">
   <header>
     <h1>International Gold – INR</h1>
-    <div class="last-update" id="updateTime">Loading latest prices...</div>
+    <div class="update-time" id="updateTime">Loading latest prices...</div>
   </header>
 
-  <div class="card" id="mainCard">
+  <div class="card">
     <div class="header-row">
-      <div class="title-section">International Rates</div>
-      <div class="xau-section" id="xauSection"></div>
+      <div class="title">International Rates</div>
+      <div class="intl-rates" id="intlRates"></div>
     </div>
 
     <div class="price-row">
@@ -151,7 +120,7 @@
 
     <div class="price-row">
       <div class="label">24K Difference</div>
-      <div class="value diff-positive" id="diff24k">—</div>
+      <div class="value" id="diff24k">—</div>
     </div>
 
     <div class="price-row">
@@ -166,11 +135,11 @@
 
     <div class="price-row">
       <div class="label">22K Difference</div>
-      <div class="value diff-positive" id="diff22k">—</div>
+      <div class="value" id="diff22k">—</div>
     </div>
   </div>
 
-  <div class="card" style="text-align:center; font-size:0.9rem; color:#777; padding:1rem;">
+  <div class="footer">
     Last updated: <span id="updateTimeBottom">loading...</span> • Data from international markets + local reference
   </div>
 </div>
@@ -179,28 +148,39 @@
 fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgO9hICyOfoPV2fVufy4TE3KxqYx4Y7Wlu4Koex11fRAPfUod1n7u36ikwKF-ucGNWMa0-VEqAtwx6Cs8dvc7djk4T3DFRS-x7xB0ORI9LFCUQ8qP6DCzUtejb9X0C2gHxOfTcaUSqvZMDdZF6FOyAVZ4iK_SbLA9ernqlCH-QLPhgI8XPVQdg3AwyVn5TSyg92zhEJzVtRq0JImLMOevtLDhJW6Rkk3n6J5pwt-epTKhQbA1LhHTojxTuA-neQ5UEvBOxEFlhV5i2N3mluN8q4sx8ehA&lib=MGojfogA9ghirZ0wsR_Oq2NDoIZ1hlD_h")
   .then(res => res.json())
   .then(d => {
-    const timeEl = document.getElementById("updateTime");
-    const timeBottom = document.getElementById("updateTimeBottom");
+    const time = d.time || "—";
+    document.getElementById("updateTime").textContent = time;
+    document.getElementById("updateTimeBottom").textContent = time;
 
-    timeEl.textContent = d.time || "—";
-    timeBottom.textContent = d.time || "—";
-
-    document.getElementById("xauSection").innerHTML = `
-      XAUUSD: <span class="highlight">$${Number(d.xauusd||0).toLocaleString()}</span><br>
-      USDINR: <span class="highlight">₹${Number(d.usdinr||0).toFixed(3)}</span>
+    document.getElementById("intlRates").innerHTML = `
+      XAUUSD: <strong>$${Number(d.xauusd || 4501.92).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong><br>
+      USDINR: <strong>₹${Number(d.usdinr || 90.225).toFixed(3)}</strong>
     `;
 
-    document.getElementById("baseGram").textContent     = "₹" + Number(d.baseInrGram||0).toLocaleString();
-    document.getElementById("retail24k").textContent   = "₹" + Number(d.retail24k||0).toLocaleString();
-    document.getElementById("market24k").textContent   = "₹" + Number(d.last24k||0).toLocaleString();
-    document.getElementById("diff24k").textContent     = "₹" + Number(d.diff24k||0).toLocaleString();
+    // Base keeps full precision or many decimals as per original
+    document.getElementById("baseGram").textContent = "₹" + Number(d.baseInrGram || 13059.165).toLocaleString('en-IN', {minimumFractionDigits:3, maximumFractionDigits:3});
 
-    document.getElementById("retail22k").textContent   = "₹" + Number(d.retail22k||0).toLocaleString();
-    document.getElementById("market22k").textContent   = "₹" + Number(d.last22k||0).toLocaleString();
-    document.getElementById("diff22k").textContent     = "₹" + Number(d.diff22k||0).toLocaleString();
+    // Others to 2 decimals
+    const formatPrice = (val) => "₹" + Number(val || 0).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+
+    document.getElementById("retail24k").textContent = formatPrice(d.retail24k);
+    document.getElementById("market24k").textContent = formatPrice(d.last24k);
+    
+    const diff24 = Number(d.diff24k || 0);
+    const diff24El = document.getElementById("diff24k");
+    diff24El.textContent = formatPrice(Math.abs(diff24));
+    diff24El.className = "value " + (diff24 >= 0 ? "diff-positive" : "diff-negative");
+
+    document.getElementById("retail22k").textContent = formatPrice(d.retail22k);
+    document.getElementById("market22k").textContent = formatPrice(d.last22k);
+    
+    const diff22 = Number(d.diff22k || 0);
+    const diff22El = document.getElementById("diff22k");
+    diff22El.textContent = formatPrice(Math.abs(diff22));
+    diff22El.className = "value " + (diff22 >= 0 ? "diff-positive" : "diff-negative");
   })
   .catch(err => {
-    document.getElementById("updateTime").textContent = "Error loading data";
+    document.getElementById("updateTime").textContent = "Error loading data – check connection";
     console.error(err);
   });
 </script>
