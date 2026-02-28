@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Gold & Silver Price Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="gold-icon">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#paint0_linear)" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear)" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="2" y1="2" x2="22" y2="12" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FDB931" />
+                            <stop offset="1" stop-color="#99700E" />
+                        </linearGradient>
+                        <linearGradient id="paint1_linear" x1="2" y1="17" x2="22" y2="22"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FDB931" />
+                            <stop offset="1" stop-color="#99700E" />
+                        </linearGradient>
+                        <linearGradient id="paint2_linear" x1="2" y1="12" x2="22" y2="17"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FDB931" />
+                            <stop offset="1" stop-color="#99700E" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>BullionCalc</h1>
+            </div>
+            <div class="header-info">
+                <p class="subtitle">Global → Indian Retail Price Converter</p>
+                <div id="last-updated" class="timestamp">Fetching rates...</div>
+            </div>
+        </header>
+
+        <!-- Mobile Navigation Tabs -->
+        <nav class="mobile-tabs">
+            <button class="tab-btn active" data-target="results-column">Prices</button>
+            <button class="tab-btn" data-target="settings-column">Settings</button>
+            <button class="tab-btn" data-target="breakdown-column">Breakdown</button>
+        </nav>
+
+        <main class="calculator-grid">
+            <!-- Left Column: Settings -->
+            <section class="settings-column">
+                <div class="glass-panel">
+                    <h2>Market Inputs</h2>
+                    <div class="input-group">
+                        <label for="gold-spot">Gold Spot ($/oz)</label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="gold-spot" step="0.01">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="silver-spot">Silver Spot ($/oz)</label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="silver-spot" step="0.01">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="usd-inr">USD / INR Rate</label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol">₹</span>
+                            <input type="number" id="usd-inr" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <h2>Comparison Settings (Madurai)</h2>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="local-gold-24k">Gold 24K (₹/g)</label>
+                            <input type="number" id="local-gold-24k" placeholder="Fetching...">
+                        </div>
+                        <div class="input-group">
+                            <label for="local-gold-22k">Gold 22K (₹/g)</label>
+                            <input type="number" id="local-gold-22k" placeholder="Fetching...">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="local-silver">Silver (₹/g)</label>
+                            <input type="number" id="local-silver" placeholder="Fetching...">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <h3>Taxes & Charges</h3>
+                    <div class="input-row">
+                        <div class="input-group small">
+                            <label for="import-duty">Import (%)</label>
+                            <input type="number" id="import-duty" value="6.0" step="0.1">
+                        </div>
+                        <div class="input-group small">
+                            <label for="gst">GST (%)</label>
+                            <input type="number" id="gst" value="3.0" step="0.1">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group small">
+                            <label for="bank-charges">Charges (%)</label>
+                            <input type="number" id="bank-charges" value="0.0" step="0.1">
+                        </div>
+                        <div class="input-group small">
+                            <label for="margin">Margin (%)</label>
+                            <input type="number" id="margin" value="0.0" step="0.1">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Center Column: Results -->
+            <section class="results-column">
+                <div class="result-card gold-card">
+                    <div class="card-header">
+                        <h3>Gold (24K)</h3>
+                        <span class="purity-tag">99.9% Purity</span>
+                    </div>
+                    <div class="price-display big">
+                        <span class="currency">₹</span>
+                        <span class="amount" id="gold-24k-gram">0</span>
+                        <span class="unit-inline">/ g</span>
+                    </div>
+                    <div class="unit-small-top">Per 10 Grams: ₹ <span id="gold-24k-price">0</span></div>
+                    <div class="comparison-row">
+                        <div class="local-val">Live: ₹<span id="show-live-24k">--</span>/g</div>
+                        <div>
+                            <span>Diff:</span>
+                            <span id="diff-gold-24k" class="diff-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card gold-card-22">
+                    <div class="card-header">
+                        <h3>Gold (22K)</h3>
+                        <span class="purity-tag">91.6% Purity</span>
+                    </div>
+                    <div class="price-display big">
+                        <span class="currency">₹</span>
+                        <span class="amount" id="gold-22k-gram">0</span>
+                        <span class="unit-inline">/ g</span>
+                    </div>
+                    <div class="unit-small-top">Per 10 Grams: ₹ <span id="gold-22k-price">0</span></div>
+                    <div class="comparison-row">
+                        <div class="local-val">Live: ₹<span id="show-live-22k">--</span>/g</div>
+                        <div>
+                            <span>Diff:</span>
+                            <span id="diff-gold-22k" class="diff-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card silver-card">
+                    <div class="card-header">
+                        <div class="silver-title-group">
+                            <h3>Silver</h3>
+                            <select id="silver-unit-select" class="unit-dropdown">
+                                <option value="1">Per 1 g</option>
+                                <option value="10">Per 10 g</option>
+                                <option value="100">Per 100 g</option>
+                                <option value="1000" selected>Per 1 kg</option>
+                            </select>
+                        </div>
+                        <span class="purity-tag">99.9% Purity</span>
+                    </div>
+                    <div class="price-display big">
+                        <span class="currency">₹</span>
+                        <span class="amount" id="silver-gram">0</span>
+                        <span class="unit-inline">/ g</span>
+                    </div>
+                    <div class="unit-small-top">Selected Unit: ₹ <span id="silver-price">0</span></div>
+                    <div class="comparison-row">
+                        <div class="local-val">Live: ₹<span id="show-live-silver">--</span>/g</div>
+                        <div>
+                            <span>Diff:</span>
+                            <span id="diff-silver" class="diff-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-panel">
+                    <div id="fetch-status" class="status-msg">Auto-refresh active - 1m</div>
+                    <button id="fetch-live-btn" class="refresh-pill">Refresh Now</button>
+                </div>
+            </section>
+
+            <!-- Right Column: Breakdown -->
+            <section class="breakdown-column">
+                <div class="glass-panel breakdown-panel">
+                    <h2>Calculation Breakdown</h2>
+                    <div id="breakdown-details" class="breakdown-content">
+                        <!-- Dynamic Content -->
+                        <div class="empty-state">Calculating...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Live data fetched from GoodReturns (Madurai) & International Spot Prices.</p>
+        </footer>
+    </div>
+
+    <script src="script.js?v=2"></script>
+</body>
+
+</html>
+
