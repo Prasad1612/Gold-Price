@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Results
     const gold24kGramDisplay = document.getElementById('gold-24k-gram');
-    const gold24k10gDisplay = document.getElementById('gold-24k-price');
+    const gold24k8gDisplay = document.getElementById('gold-24k-price');
     const diffGold24kDisplay = document.getElementById('diff-gold-24k');
 
     const gold22kGramDisplay = document.getElementById('gold-22k-gram');
-    const gold22k10gDisplay = document.getElementById('gold-22k-price');
+    const gold22k8gDisplay = document.getElementById('gold-22k-price');
     const diffGold22kDisplay = document.getElementById('diff-gold-22k');
 
     const silverGramDisplay = document.getElementById('silver-gram');
@@ -141,10 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update UI Results (Swapped: Big Font = Local, Small Font = Live)
         gold24kGramDisplay.textContent = local24k ? formatINR(local24k, 0) : '--';
-        gold24k10gDisplay.textContent = local24k ? formatINR(local24k * 10, 0) : '--';
+        gold24k8gDisplay.textContent = local24k ? formatINR(local24k * 8, 0) : '--';
 
         gold22kGramDisplay.textContent = local22k ? formatINR(local22k, 0) : '--';
-        gold22k10gDisplay.textContent = local22k ? formatINR(local22k * 10, 0) : '--';
+        gold22k8gDisplay.textContent = local22k ? formatINR(local22k * 8, 0) : '--';
 
         silverGramDisplay.textContent = localSilLimit ? formatINR(localSilLimit, 0) : '--';
         silverUnitDisplay.textContent = localSilLimit ? formatINR(localSilLimit * silverUnit, 0) : '--';
